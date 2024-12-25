@@ -28,13 +28,16 @@
                         <a href="{{ route('book_download', encrypt($book->id)) }}" id="download_id"
                             class="btn btn-success btn-sm">Download
                             Pdf</a>
-                        <a href="{{ route('book_gift_coin', [
-                            'id' => encrypt($book->id),
-                            'other_user' => isset($req_data['other_user']) ? $req_data['other_user'] : null,
-                            'other_visiting_id' => isset($req_data['other_visiting_id']) ? $req_data['other_visiting_id'] : null,
-                            'other_url' => isset($req_data['other_url']) ? $req_data['other_url'] : null,
-                        ]) }}"
-                            id="gift_coin_id" class="btn btn-success btn-sm">Get Coin</a>
+                        @if ($game_app_request)
+                            <a href="{{ route('book_gift_coin', [
+                                'id' => encrypt($book->id),
+                                'other_user' => isset($req_data['other_user']) ? $req_data['other_user'] : null,
+                                'other_visiting_id' => isset($req_data['other_visiting_id']) ? $req_data['other_visiting_id'] : null,
+                                'other_url' => isset($req_data['other_url']) ? $req_data['other_url'] : null,
+                            ]) }}"
+                                id="gift_coin_id" class="btn btn-success btn-sm">Get Coin</a>
+                        @endif
+
 
                         <div class="accordion" id="accordionExample">
                             @foreach ($bookPage as $data)

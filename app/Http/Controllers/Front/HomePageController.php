@@ -68,6 +68,10 @@ class HomePageController extends Controller
             "other_visiting_id" => 'nullable',
             "other_url" => 'nullable',
         ]);
+        $game_app_request = false;
+        if ($request->other_visiting_id && $request->other_user) {
+            $game_app_request = true;
+        }
         $req_data = $request->all();
         $data = decrypt($id);
         $book = book::find($data);
@@ -76,7 +80,7 @@ class HomePageController extends Controller
         $comments = Comment::where('book_id', $data)->get();
         $ads = AdManage::where('book_id', $data)->get();
 
-        return view('frontend.pages.book_details', compact('book', 'bookPage', 'likes', 'comments', 'ads', 'req_data'));
+        return view('frontend.pages.book_details', compact('book', 'bookPage', 'likes', 'comments', 'ads', 'req_data','game_app_request'));
     }
     public function bookGiftCoin(Request $request, $id)
     {
@@ -90,26 +94,24 @@ class HomePageController extends Controller
         $book = book::find($data);
         $req_data = $request->all();
 
+        if ($request->other_visiting_id && $request->other_user) {
+            $url = env('MOTHER_APP_URL') . '/web_routing_visit_count/' . $request->other_visiting_id;
+            // dd($url);
+            $response = Http::get($url, $req_data);
+            $res = $response->json();
 
-        $url = 'http://127.0.0.1:8000/web_routing_visit_count/'.$request->other_visiting_id ;
-
-        $response = Http::get($url,$req_data);
-        $res = $response->json();
-
-        // Check the response status and content
-
-
-        if ($res['status'] == true) {
-            $responseData = $response->json(); // If the response is JSON
-            // Or use $response->body() if the response is a plain string
-
-            $message = $res['message'];
-        } else {
-            $message = $res['message'];
-
+            if ($res['status'] == true) {
+                $responseData = $response->json(); // If the response is JSON  Or use $response->body()
+                $message = $res['message'];
+            } else {
+                $message = $res['message'];
+            }
+        }else{
+            $message = 'Where are you here?';
         }
 
-        return view('frontend.pages.book_gift_coin', compact('book','req_data','message'));
+
+        return view('frontend.pages.book_gift_coin', compact('book', 'req_data', 'message'));
     }
     public function bookDownload($id)
     {

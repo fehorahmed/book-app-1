@@ -328,20 +328,6 @@
                 }
             });
 
-            $('#btn-add-product-two').click(function () {
-                // alert('ok');
-                var html = $('#template-product-two').html();
-                // console.log(html);
-                var item = $(html);
-                $('#product-container-two').append(item);
-
-                // initProduct();
-
-                if ($('.product-item-two').length >= 1 ) {
-                    $('.btn-remove-two').show();
-                }
-
-            });
 
             $('body').on('click', '.btn-remove-two', function () {
                 $(this).closest('.product-item-two').remove();

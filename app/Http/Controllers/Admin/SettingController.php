@@ -293,4 +293,71 @@ class SettingController extends Controller
         session()->flash('success', 'Ad Updated Successfully!');
         return redirect()->back();
     }
+
+    public function homePageAdSettingCreateOrUpdate(Request $request){
+        $adCheck = AdSetting::first();
+        if($adCheck){
+            $adCheck->update([
+                'home_page_ad_one' => $request->home_page_ad_one,
+                'home_page_ad_two' => $request->home_page_ad_two,
+                'home_page_ad_three' => $request->home_page_ad_three,
+                'home_page_ad_four' => $request->home_page_ad_four,
+                'home_page_ad_five' => $request->home_page_ad_five,
+            ]);
+        }else{
+            AdSetting::create([
+                'home_page_ad_one' => $request->home_page_ad_one,
+                'home_page_ad_two' => $request->home_page_ad_two,
+                'home_page_ad_three' => $request->home_page_ad_three,
+                'home_page_ad_four' => $request->home_page_ad_four,
+                'home_page_ad_five' => $request->home_page_ad_five,
+            ]);
+        }
+        session()->flash('success', 'Home Page Ad Updated Successfully!');
+        return redirect()->back();
+    }
+    public function categoryPageAdSettingCreateOrUpdate(Request $request){
+        $adCheck = AdSetting::first();
+        if($adCheck){
+            $adCheck->update([
+                'category_page_ad_one' => $request->category_page_ad_one,
+                'category_page_ad_two' => $request->category_page_ad_two,
+                'category_page_ad_three' => $request->category_page_ad_three,
+                'category_page_ad_four' => $request->category_page_ad_four,
+                'category_page_ad_five' => $request->category_page_ad_five,
+            ]);
+        }else{
+            AdSetting::create([
+                'category_page_ad_one' => $request->category_page_ad_one,
+                'category_page_ad_two' => $request->category_page_ad_two,
+                'category_page_ad_three' => $request->category_page_ad_three,
+                'category_page_ad_four' => $request->category_page_ad_four,
+                'category_page_ad_five' => $request->category_page_ad_five,
+            ]);
+        }
+        session()->flash('success', 'Catgory Page Ad Updated Successfully!');
+        return redirect()->back();
+    }
+    public function writerPageAdSettingCreateOrUpdate(Request $request){
+        $adCheck = AdSetting::first();
+        if($adCheck){
+            $adCheck->update([
+                'writer_page_ad_one' => $request->writer_page_ad_one,
+                'writer_page_ad_two' => $request->writer_page_ad_two,
+                'writer_page_ad_three' => $request->writer_page_ad_three,
+                'writer_page_ad_four' => $request->writer_page_ad_four,
+                'writer_page_ad_five' => $request->writer_page_ad_five,
+            ]);
+        }else{
+            AdSetting::create([
+                'writer_page_ad_one' => $request->writer_page_ad_one,
+                'writer_page_ad_two' => $request->writer_page_ad_two,
+                'writer_page_ad_three' => $request->writer_page_ad_three,
+                'writer_page_ad_four' => $request->writer_page_ad_four,
+                'writer_page_ad_five' => $request->writer_page_ad_five,
+            ]);
+        }
+        session()->flash('success', 'Writer Page Ad Updated Successfully!');
+        return redirect()->back();
+    }
 }

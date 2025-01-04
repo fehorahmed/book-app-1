@@ -25,7 +25,7 @@
                 min-width: 100%;
             }
         }
-        
+
         @media only screen and (max-width: 1000px) {
             .container .col-lg-3 {
                 min-width: 33% !important;
@@ -58,11 +58,14 @@
     <div class="features-section bg-gray">
         <div class="container">
             <h5 class="subtitle"><a href="{{ route('home') }}">লাইব্রেরি</a> » বইয়ের ধরণ</h5>
+            <script>
+                {{ $adShow->category_page_ad_one ?? '' }}
+            </script>
             <div class="row mt-5">
                 @foreach ($categories as $category)
                     <div class="col-lg-3">
                            <a href="{{ route('category_wise_book', encrypt($category->id)) }}">
-                                <div class="card card_height shadow">     
+                                <div class="card card_height shadow">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ $category->name ?? '' }}</h5>
                                     </div>
@@ -71,6 +74,19 @@
                     </div><!-- End .col-lg-3 -->
                 @endforeach
             </div><!-- End .row -->
+
+            <script>
+                {{ $adShow->category_page_ad_two ?? '' }}
+            </script>
+            <script>
+                {{ $adShow->category_page_ad_three ?? '' }}
+            </script>
+            <script>
+                {{ $adShow->category_page_ad_four ?? '' }}
+            </script>
+            <script>
+                {{ $adShow->category_page_ad_five ?? '' }}
+            </script>
         </div><!-- End .container -->
     </div><!-- End .features-section -->
 

@@ -147,7 +147,7 @@
         });
         $('#writer_id').change(function () {
             var writer_id = $(this).val();
-            
+
             if (writer_id != '') {
                 $.ajax({
                     method: "GET",

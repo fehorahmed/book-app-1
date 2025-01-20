@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
+use Session;
 use App\Models\Book;
+use App\Models\Like;
 use App\Models\Footer;
 use App\Models\Studio;
 use App\Models\Writer;
+use App\Models\Comment;
 use App\Models\Gallery;
+use App\Models\AdManage;
+use App\Models\AdSetting;
 use App\Models\HomeVideo;
 use App\Models\Subscribe;
 use App\Models\PrivacyTerm;
@@ -20,12 +25,8 @@ use App\Models\GalleryTopSection;
 use App\Models\HomeSecondSection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
-use App\Models\AdManage;
-use App\Models\Like;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Http;
-use Session;
 
 class HomePageController extends Controller
 {
@@ -37,19 +38,22 @@ class HomePageController extends Controller
         $islamicBooks = Book::where('category_id', 3)->with('writer')->take(6)->get();
         $popularBooks = Book::orderBy('like_count', 'desc')->with('writer')->take(6)->get();
         $user = User::first();
-        return view('frontend.pages.home', compact('books', 'categoryBooks', 'islamicBooks', 'categories', 'user', 'popularBooks'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.home', compact('books', 'categoryBooks', 'islamicBooks', 'categories', 'user', 'popularBooks','adShow'));
     }
     public function bookCategory()
     {
         $user = User::first();
         $categories = BookCategory::where('status', 1)->get();
-        return view('frontend.pages.book_category', compact('categories', 'user'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.book_category', compact('categories', 'user','adShow'));
     }
     public function bookWriter()
     {
         $user = User::first();
         $writers = Writer::where('status', 1)->get();
-        return view('frontend.pages.book_writer', compact('writers', 'user'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.book_writer', compact('writers', 'user','adShow'));
     }
 
     public function newAllBook()
@@ -58,7 +62,8 @@ class HomePageController extends Controller
         $books = Book::where('status', 1)->orderBy('id', 'desc')->get();
         $categories = BookCategory::where('status', 1)->orderBy('id', 'desc')->get();
         $writers = Writer::where('status', 1)->get();
-        return view('frontend.pages.new_all_book', compact('books', 'user', 'categories', 'writers'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.new_all_book', compact('books', 'user', 'categories', 'writers','adShow'));
     }
     public function bookDetails(Request $request, $id)
     {
@@ -79,8 +84,8 @@ class HomePageController extends Controller
         $likes = Like::where('book_id', $data)->get()->count();
         $comments = Comment::where('book_id', $data)->get();
         $ads = AdManage::where('book_id', $data)->get();
-
-        return view('frontend.pages.book_details', compact('book', 'bookPage', 'likes', 'comments', 'ads', 'req_data','game_app_request'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.book_details', compact('book', 'bookPage', 'likes', 'comments', 'ads', 'req_data','game_app_request','adShow'));
     }
     public function bookGiftCoin(Request $request, $id)
     {
@@ -134,14 +139,16 @@ class HomePageController extends Controller
         $user = User::first();
         $data = decrypt($id);
         $books = book::where('category_id', $data)->get();
-        return view('frontend.pages.category_wise_book', compact('books', 'user'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.category_wise_book', compact('books', 'user','adShow'));
     }
     public function writerWiseBook(Request $request, $id)
     {
         $user = User::first();
         $data = decrypt($id);
         $writerWiseBooks = book::where('writer_id', $data)->get();
-        return view('frontend.pages.writer_wise_book', compact('writerWiseBooks', 'user'));
+        $adShow = AdSetting::first();
+        return view('frontend.pages.writer_wise_book', compact('writerWiseBooks', 'user','adShow'));
     }
 
     public function getBook(Request $request)

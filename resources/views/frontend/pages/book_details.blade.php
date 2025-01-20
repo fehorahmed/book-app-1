@@ -18,6 +18,9 @@
             <div class="container">
                 <h5 class="subtitle"><a href="{{ route('home') }}">লাইব্রেরি</a> » বইয়ের ধরণ</h5>
                 <div class="row mt-5">
+                    <script>
+                        {{ $adShow->details_page_ad_one ?? '' }}
+                    </script>
                     <div class="col-lg-8 mx-auto">
                         <img src="{{ !empty($book->image) ? asset('upload/book_image/' . $book->image) : null }}"
                             class="rounded mx-auto d-block" alt="">
@@ -98,6 +101,18 @@
                         </form>
                     </div>
                 </div>
+                <script>
+                    {{ $adShow->details_page_ad_two ?? '' }}
+                </script>
+                <script>
+                    {{ $adShow->details_page_ad_three ?? '' }}
+                </script>
+                <script>
+                    {{ $adShow->details_page_ad_four ?? '' }}
+                </script>
+                <script>
+                    {{ $adShow->details_page_ad_five ?? '' }}
+                </script>
             </div><!-- End .container -->
         </div><!-- End .features-section -->
     </main>

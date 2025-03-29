@@ -59,7 +59,7 @@
         <div class="container">
             <h5 class="subtitle"><a href="{{ route('home') }}">লাইব্রেরি</a> » বইয়ের ধরণ</h5>
 
-                {!! $adShow->category_page_ad_one ?? '' !!}
+                {!! $adShow->home_page_ad_one ?? '' !!}
 
             <div class="row mt-5">
                 @foreach ($categories as $category)
@@ -76,13 +76,13 @@
             </div><!-- End .row -->
 
 
-                {!! $adShow->category_page_ad_two ?? '' !!}
+            {!! $adShow->home_page_ad_two ?? '' !!}
 
-                {!! $adShow->category_page_ad_three ?? '' !!}
+            {!! $adShow->home_page_ad_three ?? '' !!}
 
-                {!! $adShow->category_page_ad_four ?? '' !!}
+            {!! $adShow->home_page_ad_four ?? '' !!}
 
-                {!! $adShow->category_page_ad_five ?? '' !!}
+            {!! $adShow->home_page_ad_five ?? '' !!}
 
         </div><!-- End .container -->
     </div><!-- End .features-section -->

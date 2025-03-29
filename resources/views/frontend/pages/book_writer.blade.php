@@ -58,7 +58,7 @@
         <div class="container">
             <h5 class="subtitle"><a href="{{ route('home') }}">লাইব্রেরি</a> » লেখক</h5>
 
-                {!! $adShow->writer_page_ad_one ?? '' !!}
+                {!! $adShow->home_page_ad_one ?? '' !!}
 
             <div class="row mt-5">
                 @foreach ($writers as $writer)
@@ -74,10 +74,14 @@
                 @endforeach
             </div><!-- End .row -->
 
-                {!! $adShow->writer_page_ad_two ?? '' !!}
-                {!! $adShow->writer_page_ad_three ?? '' !!}
-                {!! $adShow->writer_page_ad_four ?? '' !!}
-                {!! $adShow->writer_page_ad_five ?? '' !!}
+            {!! $adShow->home_page_ad_two ?? '' !!}
+
+            {!! $adShow->home_page_ad_three ?? '' !!}
+
+            {!! $adShow->home_page_ad_four ?? '' !!}
+
+            {!! $adShow->home_page_ad_five ?? '' !!}
+
 
         </div><!-- End .container -->
     </div><!-- End .features-section -->

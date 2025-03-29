@@ -108,6 +108,9 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                {!! $adShow->home_page_ad_one ?? '' !!}
+            </div>
            <div class="row mt-2" id="book_filter">
                 @foreach ($books as $book)
                     <div class="col-md-2">
@@ -122,6 +125,13 @@
                     </div>
                 @endforeach
            </div>
+           {!! $adShow->home_page_ad_two ?? '' !!}
+
+           {!! $adShow->home_page_ad_three ?? '' !!}
+
+           {!! $adShow->home_page_ad_four ?? '' !!}
+
+           {!! $adShow->home_page_ad_five ?? '' !!}
         </div>
     </section>
 </main>

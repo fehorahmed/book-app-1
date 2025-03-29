@@ -71,6 +71,15 @@
                     </div><!-- End .col-lg-3 -->
                 </div><!-- End .row -->
                 <div class="row">
+                    {!! $adShow->home_page_ad_two ?? '' !!}
+
+                    {!! $adShow->home_page_ad_three ?? '' !!}
+
+                    {!! $adShow->home_page_ad_four ?? '' !!}
+
+                    {!! $adShow->home_page_ad_five ?? '' !!}
+                </div>
+                <div class="row">
 
                     <div class="col-lg-8 mx-auto">
                         <h4>Like And Comments</h4>

@@ -112,6 +112,13 @@
                 </div>
             </div>
             <div class="container">
+                <div class="row">
+                    <div class="col-md-12 d-md-hide d-sm-hide">
+                        {!! $adShow->home_page_ad_one ?? '' !!}
+                    </div>
+                </div>
+            </div>
+            <div class="container">
                 <h4>সেবা প্রকাশনী</h4>
                 <div class="row">
                     @foreach ($categoryBooks as $book)
@@ -145,6 +152,13 @@
                             </a>
                         </div>
                     @endforeach
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 d-md-hide d-sm-hide">
+                        {!! $adShow->home_page_ad_three ?? '' !!}
+                    </div>
                 </div>
             </div>
             <div class="container">

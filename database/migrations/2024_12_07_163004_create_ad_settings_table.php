@@ -13,27 +13,28 @@ return new class extends Migration
     {
         Schema::create('ad_settings', function (Blueprint $table) {
             $table->id();
-            $table->longtext('details_page_ad_one')->nullable();
-            $table->longtext('details_page_ad_two')->nullable();
-            $table->longtext('details_page_ad_three')->nullable();
-            $table->longtext('details_page_ad_four')->nullable();
-            $table->longtext('details_page_ad_five')->nullable();
-            $table->longtext('details_page_ad_six')->nullable();
+            // $table->longtext('details_page_ad_one')->nullable();
+            // $table->longtext('details_page_ad_two')->nullable();
+            // $table->longtext('details_page_ad_three')->nullable();
+            // $table->longtext('details_page_ad_four')->nullable();
+            // $table->longtext('details_page_ad_five')->nullable();
+            // $table->longtext('details_page_ad_six')->nullable();
             $table->longtext('home_page_ad_one')->nullable();
             $table->longtext('home_page_ad_two')->nullable();
             $table->longtext('home_page_ad_three')->nullable();
             $table->longtext('home_page_ad_four')->nullable();
             $table->longtext('home_page_ad_five')->nullable();
-            $table->longtext('category_page_ad_one')->nullable();
-            $table->longtext('category_page_ad_two')->nullable();
-            $table->longtext('category_page_ad_three')->nullable();
-            $table->longtext('category_page_ad_four')->nullable();
-            $table->longtext('category_page_ad_five')->nullable();
-            $table->longtext('writer_page_ad_one')->nullable();
-            $table->longtext('writer_page_ad_two')->nullable();
-            $table->longtext('writer_page_ad_three')->nullable();
-            $table->longtext('writer_page_ad_four')->nullable();
-            $table->longtext('writer_page_ad_five')->nullable();
+            $table->longtext('home_page_ad_six')->nullable();
+            // $table->longtext('category_page_ad_one')->nullable();
+            // $table->longtext('category_page_ad_two')->nullable();
+            // $table->longtext('category_page_ad_three')->nullable();
+            // $table->longtext('category_page_ad_four')->nullable();
+            // $table->longtext('category_page_ad_five')->nullable();
+            // $table->longtext('writer_page_ad_one')->nullable();
+            // $table->longtext('writer_page_ad_two')->nullable();
+            // $table->longtext('writer_page_ad_three')->nullable();
+            // $table->longtext('writer_page_ad_four')->nullable();
+            // $table->longtext('writer_page_ad_five')->nullable();
             $table->timestamps();
         });
     }

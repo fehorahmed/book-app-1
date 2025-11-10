@@ -20,7 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('writer','category')->get();
+        $books = Book::with('writer', 'category')->get();
         // dd($books);
         return view('backend.dashboard.admin.pages.book.index', compact('books'));
     }
@@ -32,7 +32,7 @@ class BookController extends Controller
     {
         $categories = BookCategory::where('status', 1)->get();
         $writers = Writer::where('status', 1)->get();
-        return view('backend.dashboard.admin.pages.book.create', compact('writers','categories'));
+        return view('backend.dashboard.admin.pages.book.create', compact('writers', 'categories'));
     }
 
     /**
@@ -52,39 +52,30 @@ class BookController extends Controller
         ]);
         try {
             DB::beginTransaction();
-                $book = new Book();
-                $book->name = $request->name;
-                $book->category_id = $request->category_id;
-                $book->writer_id = $request->writer_id;
-                $book->description = $request->short_description;
-                $book->ad_link = $request->ad_link;
-                $book->ad_count = $request->ad_count;
-                $book->ad_coin = $request->ad_coin;
-                // dd($book->description);
-                $book->status = $request->status;
-                if (!is_null($request->image)) {
-                    $book->image = UploadHelper::upload('book_image', $request->image, Str::slug($request->name) . '-' . time(), 'upload/book_image');
-                }
-                $book->save();
-                $counter = 0;
-                foreach($request->content_name as $content){
-                    // dd($request->content_name);
-                    BookPageContent::create([
-                        'book_id' => $book->id,
-                        'content_name' => $request->content_name[$counter],
-                        'description' => $request->description[$counter]
-                    ]);
-                    $counter++;
-                }
-                // $counter = 0;
-                // foreach($request->ad_link as $content){
-                //     AdManage::create([
-                //         'book_id' => $book->id,
-                //         'ad_link' => $request->ad_link[$counter],
-                //     ]);
-                //     $counter++;
-                // }
-
+            $book = new Book();
+            $book->name = $request->name;
+            $book->category_id = $request->category_id;
+            $book->writer_id = $request->writer_id;
+            $book->description = $request->short_description;
+            $book->ad_link = $request->ad_link;
+            $book->ad_count = $request->ad_count;
+            $book->ad_coin = $request->ad_coin;
+            // dd($book->description);
+            $book->status = $request->status;
+            if (!is_null($request->image)) {
+                $book->image = UploadHelper::upload('book_image', $request->image, Str::slug($request->name) . '-' . time(), 'upload/book_image');
+            }
+            $book->save();
+            $counter = 0;
+            foreach ($request->content_name as $content) {
+                // dd($request->content_name);
+                BookPageContent::create([
+                    'book_id' => $book->id,
+                    'content_name' => $request->content_name[$counter],
+                    'description' => $request->description[$counter]
+                ]);
+                $counter++;
+            }
             DB::commit();
             session()->flash('success', 'Book has been Inserted successfully !!');
             return redirect()->route('book.index');
@@ -110,7 +101,7 @@ class BookController extends Controller
     {
         $categories = BookCategory::where('status', 1)->get();
         $writers = Writer::where('status', 1)->get();
-        return view('backend.dashboard.admin.pages.book.edit', compact('writers','categories','book'));
+        return view('backend.dashboard.admin.pages.book.edit', compact('writers', 'categories', 'book'));
     }
 
     /**
@@ -118,30 +109,42 @@ class BookController extends Controller
      */
     public function update(Book $book, Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+            'short_description' => 'required',
+            'image' => 'required',
+            'ad_link' => 'required|string|max:255',
+            'ad_count' => 'required|numeric',
+            'ad_coin' => 'required|numeric',
+        ]);
 
         try {
             DB::beginTransaction();
 
-                $book->name = $request->name;
-                $book->category_id = $request->category_id;
-                $book->writer_id = $request->writer_id;
-                $book->description = $request->short_description;
-                $book->status = $request->status;
-                $book->ad_link = $request->ad_link;
-                $book->ad_count = $request->ad_count;
-                $book->ad_coin = $request->ad_coin;
-                if (!is_null($request->image)) {
-                    $book->image = UploadHelper::upload('book_image', $request->image, Str::slug($request->name) . '-' . time(), 'upload/book_image');
-                }
-                $book->save();
-                $counter = 0;
-                foreach($book->bookPageContent as $content){
-                    $content->update([
-                        'content_name' => $request->content_name[$counter],
-                        'description' => $request->description[$counter]
+            $book->name = $request->name;
+            $book->category_id = $request->category_id;
+            $book->writer_id = $request->writer_id;
+            $book->description = $request->short_description;
+            $book->status = $request->status;
+            $book->ad_link = $request->ad_link;
+            $book->ad_count = $request->ad_count;
+            $book->ad_coin = $request->ad_coin;
+            if (!is_null($request->image)) {
+                $book->image = UploadHelper::upload('book_image', $request->image, Str::slug($request->name) . '-' . time(), 'upload/book_image');
+            }
+            $book->save();
+            BookPageContent::where('book_id', $book->id)->delete();
+
+            if (!empty($request->content_name)) {
+                foreach ($request->content_name as $index => $contentName) {
+                    BookPageContent::create([
+                        'book_id' => $book->id,
+                        'content_name' => $contentName,
+                        'description' => $request->description[$index] ?? null,
                     ]);
-                    $counter++;
                 }
+            }
 
             DB::commit();
             session()->flash('success', 'Book has been Updated successfully !!');
@@ -163,7 +166,7 @@ class BookController extends Controller
             session()->flash('error', "The page is not found !");
             return redirect()->route('book.index');
         }
-        if($book->image){
+        if ($book->image) {
             UploadHelper::deleteFile('upload/book_image/' . $book->image);
         }
 
